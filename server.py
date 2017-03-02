@@ -18,7 +18,7 @@ def say_hello(request):
 
 
 @ServiceMethod.decorator(HelloRequest, HelloReply, cardinality=Cardinality.UNARY_STREAM)
-async def say_hello_goodbye(request: 'HelloRequest', response: 'HelloReply'):
+async def say_hello_goodbye(request: 'HelloRequest', response: 'ResponseMessageStream'):
     await asyncio.sleep(1)
     response.send(HelloReply(message='Hello ' + request.name))
     await asyncio.sleep(1)
