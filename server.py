@@ -13,7 +13,7 @@ from h2_grpc_server.request import RequestMessageStream
 logging.basicConfig(level=logging.INFO)
 
 @ServiceMethod.decorator(HelloRequest, HelloReply)
-def say_hello(request):
+def say_hello(request: 'HelloRequest') -> 'HelloReply':
     return HelloReply(message='Hello ' + request.name)
 
 
@@ -32,7 +32,7 @@ async def say_hello_to_many(request: 'HelloRequest', response: 'ResponseMessageS
 
 
 @ServiceMethod.decorator(HelloRequest, HelloReply, cardinality=Cardinality.STREAM_UNARY)
-async def say_hello_to_many_at_once(request: 'RequestMessageStream'):
+async def say_hello_to_many_at_once(request: 'RequestMessageStream') -> 'HelloReply':
     names = []
     async for message in request:
         names.append(message.name)
